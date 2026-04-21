@@ -1,8 +1,10 @@
-// import { useState } from 'react'
+import { createRoot } from 'react-dom/client'
+import Navbar from "./components/Navbar";
 
-export default function App(){
-  return <>
-  
+let App = (
+	<>
+		{/* <Navbar /> */}
+	</>
+);
 
-  </>
-}
+createRoot(document.getElementById("root")).render(App)
