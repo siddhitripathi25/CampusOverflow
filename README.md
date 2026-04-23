@@ -4,6 +4,9 @@ A Stack Overflow-like platform developed for students to solve and ask queries.
 ## Features
 - TBF
 
+## Tech Stack
+- React
+- Tailwind
 
 
 ## Contributors
@@ -19,5 +22,6 @@ npm run dev
 ```
 
 ## Dependencies
-React
-Tailwind
+- React
+- Tailwind
+- Vite

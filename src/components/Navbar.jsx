@@ -1,7 +1,7 @@
 export default function Navbar() {
 	return (
-		<header className='w-full h-13 bg-amber-600 relative '>
-			<div className='w-full h-12.5 bg-white absolute top-1 border-b border-slate-700'>
+		<header className='w-full h-13 bg-amber-600 relative'>
+			<div className='w-full h-12.5 bg-white absolute top-1 border-b border-slate-700 px-40'>
 				<div className='flex justify-between items-center-safe mx-4 '>
 					<div className='w-auto h-auto'>
 						<a href='#Home'>
