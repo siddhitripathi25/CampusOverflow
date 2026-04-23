@@ -1,10 +1,12 @@
+import { Link } from "react-router";
+
 export default function Navbar() {
 	return (
-		<header className='w-full h-13 bg-amber-600 relative'>
-			<div className='w-full h-12.5 bg-white absolute top-1 border-b border-slate-700 px-40'>
-				<div className='flex justify-between items-center-safe mx-4 '>
+		<header className='w-full h-13 bg-amber-600 relative text-sm font-light'>
+			<div className='w-full h-12.5 bg-white absolute top-1 border-b border-slate-700'>
+				<div className='flex justify-around items-center-safe w-full'>
 					<div className='w-auto h-auto'>
-						<a href='#Home'>
+						<Link to='/'>
 							<svg
 								xmlns='http://www.w3.org/2000/svg'
 								width='100'
@@ -17,23 +19,31 @@ export default function Navbar() {
 									/>
 								</g>
 							</svg>
-						</a>
+						</Link>
 					</div>
 					<div>
 						<nav className='flex justify-between gap-10'>
-							<a href='#About' className="hover:-translate-y-1 transition-all [&~*]:hover:-translate-y-1 [&~*]:transition-all">About</a>
+							<a
+								href='#About'
+								className='hover:-translate-y-1 transition-all [&~*]:hover:-translate-y-1 [&~*]:transition-all'>
+								About
+							</a>
 							<a href='#Product'>Products</a>
 							<a href='#ForTeams'>For Teams</a>
 						</nav>
 					</div>
 					<div>SEARCH</div>
 					<div className='gap-3 flex h-full'>
-						<button className='w-18 h-9 border text-blue-500 border-blue-500 rounded-md hover:bg-blue-100'>
-							<a href='#Login'>Log in</a>
-						</button>
-						<button className=' p-1 w-20 h-9 bg-blue-500 rounded-md text-white hover:bg-blue-600'>
+						<Link
+							to='/login'
+							className='w-18 h-9 border text-blue-500 border-blue-500 rounded-md active:scale-105 transition-all hover:bg-blue-100 justify-center items-center flex'>
+							Log in
+						</Link>
+						<Link
+							to={`/signup`}
+							className=' p-1 w-20 h-9 bg-blue-500 rounded-md text-white active:scale-105 transition-all hover:bg-blue-600 justify-center items-center flex'>
 							Sign up
-						</button>
+						</Link>
 					</div>
 				</div>
 			</div>
