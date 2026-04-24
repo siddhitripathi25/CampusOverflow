@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 
 export default function Questions() {
+	const navigate = useNavigate();
 	const [questions, setQuestions] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [activeTab, setActiveTab] = useState("Newest");
+	const [isMoreOpen, setIsMoreOpen] = useState(false);
+	const [isFilterOpen, setIsFilterOpen] = useState(false);
 
 	useEffect(() => {
 		setLoading(true);
@@ -65,7 +69,7 @@ export default function Questions() {
 	
 			<div className='flex justify-between items-center mb-6'>
 				<h1 className='text-[27px] font-normal text-gray-800 tracking-tight'>Newest Questions</h1>
-				<button className='bg-[#0a95ff] font-medium hover:bg-[#0074cc] text-white px-3 py-[0.55rem] rounded-[3px] shadow-sm transition-colors text-[13px]'>
+				<button onClick={() => navigate('/login')} className='bg-[#0a95ff] font-medium hover:bg-[#0074cc] text-white px-3 py-[0.55rem] rounded-[3px] shadow-sm transition-colors text-[13px]'>
 					Ask Question
 				</button>
 			</div>
@@ -77,7 +81,7 @@ export default function Questions() {
 				</div>
 
 				<div className='flex items-center gap-4'>
-					<div className='flex text-[13px] border border-[#9fa6ad] rounded-[3px] overflow-hidden'>
+					<div className='flex text-[13px] border border-[#9fa6ad] rounded-[3px] overflow-visible'>
 						<button onClick={() => setActiveTab("Newest")} className={tabButtonClass("Newest")}>
 							Newest
 						</button>
@@ -90,16 +94,46 @@ export default function Questions() {
 						<button onClick={() => setActiveTab("Unanswered")} className={tabButtonClass("Unanswered")}>
 							Unanswered
 						</button>
-						<button className='px-[10px] py-[8px] text-[#525960] hover:bg-gray-50 flex items-center gap-1 font-medium'>
-							More
-							<svg aria-hidden='true' className='w-[10px] h-[10px] fill-gray-500' viewBox='0 0 18 18'><path d='M1 5l8 8 8-8H1z'></path></svg>
-						</button>
+						
+						<div className="relative">
+							<button onClick={() => setIsMoreOpen(!isMoreOpen)} className='px-[10px] py-[8px] text-[#525960] hover:bg-gray-50 flex items-center gap-1 font-medium'>
+								More
+								<svg aria-hidden='true' className='w-[10px] h-[10px] fill-gray-500' viewBox='0 0 18 18'><path d='M1 5l8 8 8-8H1z'></path></svg>
+							</button>
+							{isMoreOpen && (
+								<div className="absolute top-[100%] right-0 mt-1 w-32 bg-white border border-[#d6d9dc] rounded-[3px] shadow-md z-10 flex flex-col py-1 text-[13px] text-[#3b4045]">
+									<button className="px-3 py-1.5 text-left hover:bg-gray-100" onClick={() => setIsMoreOpen(false)}>Frequent</button>
+									<button className="px-3 py-1.5 text-left hover:bg-gray-100" onClick={() => setIsMoreOpen(false)}>Score</button>
+									<button className="px-3 py-1.5 text-left hover:bg-gray-100" onClick={() => setIsMoreOpen(false)}>Hot</button>
+								</div>
+							)}
+						</div>
 					</div>
 
-					<button className='flex items-center gap-[6px] text-[13px] font-medium bg-[#e1ecf4] text-[#39739d] border border-[#7aa7c7] rounded-[3px] px-[10px] py-[7px] hover:bg-[#b3d3ea] hover:text-[#2c5877] transition-colors'>
-						<svg aria-hidden='true' className='w-4 h-4 fill-[#39739d]' viewBox='0 0 18 18'><path d='M2 4h14v2H2V4zm2 4h10v2H4V8zm2 4h6v2H6v-2z'></path></svg>
-						Filter
-					</button>
+					<div className="relative">
+						<button onClick={() => setIsFilterOpen(!isFilterOpen)} className='flex items-center gap-[6px] text-[13px] font-medium bg-[#e1ecf4] text-[#39739d] border border-[#7aa7c7] rounded-[3px] px-[10px] py-[7px] hover:bg-[#b3d3ea] hover:text-[#2c5877] transition-colors'>
+							<svg aria-hidden='true' className='w-4 h-4 fill-[#39739d]' viewBox='0 0 18 18'><path d='M2 4h14v2H2V4zm2 4h10v2H4V8zm2 4h6v2H6v-2z'></path></svg>
+							Filter
+						</button>
+						
+						{isFilterOpen && (
+							<div className="absolute top-[100%] right-0 mt-1 w-[200px] bg-[#f8f9f9] border border-[#d6d9dc] rounded-[3px] shadow-md z-10 flex flex-col p-3 text-[13px] text-[#3b4045]">
+								<div className="font-bold mb-2">Filter By</div>
+								<label className="flex items-center gap-2 mb-2 cursor-pointer">
+									<input type="checkbox" className="rounded border-gray-300" />
+									No answers
+								</label>
+								<label className="flex items-center gap-2 mb-3 cursor-pointer">
+									<input type="checkbox" className="rounded border-gray-300" />
+									No accepted answer
+								</label>
+								<div className="flex justify-between border-t border-[#d6d9dc] pt-2">
+									<button className="text-[#0074cc] hover:text-[#0a95ff]" onClick={() => setIsFilterOpen(false)}>Cancel</button>
+									<button className="bg-[#0a95ff] hover:bg-[#0074cc] text-white px-2 py-1 rounded-[3px]" onClick={() => setIsFilterOpen(false)}>Apply</button>
+								</div>
+							</div>
+						)}
+					</div>
 				</div>
 			</div>
 

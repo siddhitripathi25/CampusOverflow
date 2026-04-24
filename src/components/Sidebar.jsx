@@ -1,14 +1,32 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 export default function Sidebar() {
     const [activeItem, setActiveItem] = useState("Questions");
+    const navigate = useNavigate();
+
+    const handleMenuClick = (id) => {
+        setActiveItem(id);
+        if (id === "Home" || id === "Questions") {
+            navigate("/");
+        } else if (id === "Users" || id === "Tags") {
+            alert(`Navigating to ${id} directory...`);
+        } else {
+            alert(`${id} module is coming soon!`);
+        }
+    };
+
+    const handleLinkClick = (e, name) => {
+        e.preventDefault();
+        alert(`Redirecting to ${name}...`);
+    };
 
     const MenuButton = ({ id, label, icon, isIconContainer }) => {
         const isActive = activeItem === id;
         
         return (
             <li 
-                onClick={() => setActiveItem(id)}
+                onClick={() => handleMenuClick(id)}
                 className={`flex items-center px-3 py-[8px] cursor-pointer w-full rounded-md transition-colors ${
                     isActive ? "bg-[#f1f2f3] font-bold text-[#0c0d0e]" : "text-[#525960] hover:bg-[#f1f2f3] hover:text-[#0c0d0e]"
                 }`}
@@ -49,7 +67,7 @@ export default function Sidebar() {
                     icon={<svg viewBox='0 0 18 18' className={`w-[18px] h-[18px] ${activeItem === "Tags" ? "fill-[#0c0d0e]" : "fill-[#525960]"}`}><path d="M14.5 4H10L2.5 11.5 6.5 15.5 14 8v-4z"/><circle cx="11.5" cy="5.5" r="1.5"/></svg>}
                 />
                 
-                <div className="h-4"></div> {/* Spacing */}
+                <div className="h-4"></div> 
                 
                 <MenuButton 
                     id="Challenges" 
@@ -88,12 +106,12 @@ export default function Sidebar() {
             <div className='flex flex-col px-3 mb-8'>
                 <div className='text-[11px] font-bold text-[#0c0d0e] mb-3 flex justify-between items-center tracking-normal'>
                     COLLECTIVES
-                    <svg aria-hidden='true' className='w-3 h-3 fill-[#6a737c] cursor-pointer hover:fill-[#0c0d0e]' viewBox='0 0 14 14'><path d='M8 2H6v4H2v2h4v4h2V8h4V6H8V2Z'/></svg>
+                    <svg onClick={(e) => handleLinkClick(e, 'Add Collective')} aria-hidden='true' className='w-3 h-3 fill-[#6a737c] cursor-pointer hover:fill-[#0c0d0e]' viewBox='0 0 14 14'><path d='M8 2H6v4H2v2h4v4h2V8h4V6H8V2Z'/></svg>
                 </div>
                 <div className='text-[13px] text-[#6a737c] mb-2 leading-[1.3]'>
                     Communities for your favorite technologies.
                 </div>
-                <a href='#' onClick={(e) => e.preventDefault()} className='text-[13px] text-[#0c0d0e] font-bold decoration-[#d6d9dc] underline underline-offset-2 hover:decoration-[#0c0d0e]'>
+                <a href='#' onClick={(e) => handleLinkClick(e, 'Explore all Collectives')} className='text-[13px] text-[#0c0d0e] font-bold decoration-[#d6d9dc] underline underline-offset-2 hover:decoration-[#0c0d0e]'>
                     Explore all Collectives
                 </a>
             </div>
@@ -113,10 +131,10 @@ export default function Sidebar() {
                 <div className='text-[13px] text-[#525960] mb-4 leading-[1.3]'>
                     Stack Overflow for Teams is now called <strong>Stack Internal</strong>. Bring the best of human thought and AI automation together at your work.
                 </div>
-                <button className='bg-[#3772d7] hover:bg-[#2b5db0] text-white py-2 rounded-md font-medium shadow-sm transition-colors mb-2 w-full'>
+                <button onClick={(e) => handleLinkClick(e, 'Stack Internal Trial')} className='bg-[#3772d7] hover:bg-[#2b5db0] text-white py-2 rounded-md font-medium shadow-sm transition-colors mb-2 w-full'>
                     Try for free
                 </button>
-                <a href='#' onClick={(e) => e.preventDefault()} className='text-[#525960] hover:text-[#0c0d0e] text-center w-full block mt-1'>
+                <a href='#' onClick={(e) => handleLinkClick(e, 'Learn more')} className='text-[#525960] hover:text-[#0c0d0e] text-center w-full block mt-1'>
                     Learn more
                 </a>
             </div>
