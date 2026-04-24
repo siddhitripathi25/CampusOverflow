@@ -20,12 +20,12 @@ function displayCollectives() {
 					<div className='ml-auto'></div>
 					<div className='flex'>
 						<button className=' w-12 h-8 border text-sm text-blue-500 border-blue-500 rounded-md hover:bg-blue-100'>
-							Join
-						</button>
-					</div>
-				</div>
+								Join
+							</button>
+						</div>
+						</div>
 				<p className='font-light text-gray-900 text-xs'>{item.desc}</p>
-			</div>
+					</div>
 		);
 	});
 }
@@ -45,7 +45,7 @@ function displayCampusTalk() {
 					);
 				})}
 			</ul>
-		</div>
+								</div>
 	);
 }
 
@@ -78,7 +78,7 @@ function displayFeatured() {
 					);
 				})}
 			</ul>
-		</div>
+						</div>
 	);
 }
 
@@ -89,7 +89,7 @@ export default function Featured() {
 				{displayCampusTalk()}
 				<hr className='text-amber-300' />
 				{displayFeatured()}
-			</div>
+					</div>
 			<div className='collectives w-68.75 h-fit rounded-md border border-gray-500 py-2 px-3 gap-2 flex flex-col'>
 				<div className='flex justify-between mb-1'>
 					<p className='font-extrabold'>Collectives</p>
