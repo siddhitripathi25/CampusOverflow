@@ -1,20 +1,20 @@
 export function collectivesData() {
 	let data = [
 		{
-			img: `img`,
+			img: `../../public/aws.png`,
 			org: `AWS`,
 			members: `39k Members`,
 			desc: `A collective for developers who utilize Amazon Web Services'
 						infrastructure...`,
 		},
 		{
-			img: `img`,
+			img: `../../public/microsoft.png`,
 			org: `Microsoft Azure`,
 			members: `30k Members`,
 			desc: `A collective for developers to engage, share, and learn about Microsoft Azure’s...`,
 		},
 		{
-			img: `img`,
+			img: `../../public/mobile.png`,
 			org: `Mobile Develpoment`,
 			members: `29k Members`,
 			desc: `A collective for developers who want to share their knowledge and learn more...`,
