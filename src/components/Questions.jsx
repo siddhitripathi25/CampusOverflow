@@ -8,18 +8,20 @@ export default function Questions() {
 	const [activeTab, setActiveTab] = useState("Newest");
 	const [isMoreOpen, setIsMoreOpen] = useState(false);
 	const [isFilterOpen, setIsFilterOpen] = useState(false);
+	const [page, setPage] = useState(1);
+	const [pageSize, setPageSize] = useState(15);
 
 	useEffect(() => {
 		setLoading(true);
 		
-		let url = "https://api.stackexchange.com/2.3/questions?order=desc&sort=creation&site=stackoverflow&filter=withbody";
+		let url = `https://api.stackexchange.com/2.3/questions?order=desc&sort=creation&site=stackoverflow&filter=withbody&page=${page}&pagesize=${pageSize}`;
 		
 		if (activeTab === "Active") {
-			url = "https://api.stackexchange.com/2.3/questions?order=desc&sort=activity&site=stackoverflow&filter=withbody";
+			url = `https://api.stackexchange.com/2.3/questions?order=desc&sort=activity&site=stackoverflow&filter=withbody&page=${page}&pagesize=${pageSize}`;
 		} else if (activeTab === "Bountied") {
-			url = "https://api.stackexchange.com/2.3/questions/featured?order=desc&sort=activity&site=stackoverflow&filter=withbody";
+			url = `https://api.stackexchange.com/2.3/questions/featured?order=desc&sort=activity&site=stackoverflow&filter=withbody&page=${page}&pagesize=${pageSize}`;
 		} else if (activeTab === "Unanswered") {
-			url = "https://api.stackexchange.com/2.3/questions/no-answers?order=desc&sort=activity&site=stackoverflow&filter=withbody";
+			url = `https://api.stackexchange.com/2.3/questions/no-answers?order=desc&sort=activity&site=stackoverflow&filter=withbody&page=${page}&pagesize=${pageSize}`;
 		}
 
 		fetch(url)
@@ -32,7 +34,12 @@ export default function Questions() {
 				console.error(err);
 				setLoading(false);
 			});
-	}, [activeTab]);
+	}, [activeTab, page, pageSize]);
+
+	const handleTabChange = (tabName) => {
+		setActiveTab(tabName);
+		setPage(1);
+	};
 
 	const timeAgo = (date) => {
 		const seconds = Math.floor((new Date() - date * 1000) / 1000);
@@ -82,16 +89,16 @@ export default function Questions() {
 
 				<div className='flex items-center gap-4'>
 					<div className='flex text-[13px] border border-[#9fa6ad] rounded-[3px] overflow-visible'>
-						<button onClick={() => setActiveTab("Newest")} className={tabButtonClass("Newest")}>
+						<button onClick={() => handleTabChange("Newest")} className={tabButtonClass("Newest")}>
 							Newest
 						</button>
-						<button onClick={() => setActiveTab("Active")} className={tabButtonClass("Active")}>
+						<button onClick={() => handleTabChange("Active")} className={tabButtonClass("Active")}>
 							Active
 						</button>
-						<button onClick={() => setActiveTab("Bountied")} className={`${tabButtonClass("Bountied")} flex items-center gap-1`}>
+						<button onClick={() => handleTabChange("Bountied")} className={`${tabButtonClass("Bountied")} flex items-center gap-1`}>
 							Bountied <span className='bg-[#0a95ff] text-white text-[10px] px-1 py-[0.5px] rounded-[3px] font-bold'>3</span>
 						</button>
-						<button onClick={() => setActiveTab("Unanswered")} className={tabButtonClass("Unanswered")}>
+						<button onClick={() => handleTabChange("Unanswered")} className={tabButtonClass("Unanswered")}>
 							Unanswered
 						</button>
 						
@@ -199,6 +206,65 @@ export default function Questions() {
 						</div>
 					))
 				)}
+			</div>
+
+			<div className="flex flex-wrap items-center justify-between py-12 gap-4">
+				<div className="flex items-center gap-1">
+					{page > 3 && (
+						<>
+							<button onClick={() => setPage(1)} className="px-3 py-[5px] text-[13px] border rounded-[3px] bg-white text-[#3b4045] border-[#d6d9dc] hover:bg-gray-50 transition-colors">1</button>
+							{page > 4 && <span className="text-[#3b4045] px-1 text-[13px] tracking-widest">...</span>}
+						</>
+					)}
+					
+					{Array.from({length: 5}, (_, i) => {
+						let start = Math.max(1, page - 2);
+						if (start > 1610673 - 4) start = 1610673 - 4;
+						return start + i;
+					}).filter(p => p > 0 && p <= 1610673).map((p) => (
+						<button
+							key={p}
+							onClick={() => setPage(p)}
+							className={`px-3 py-[5px] text-[13px] border rounded-[3px] transition-colors ${page === p ? 'bg-[#f48225] text-white border-[#f48225]' : 'bg-white text-[#3b4045] border-[#d6d9dc] hover:bg-gray-50'}`}
+						>
+							{p}
+						</button>
+					))}
+
+					{page < 1610673 - 2 && (
+						<>
+							<span className="text-[#3b4045] px-1 text-[13px] tracking-widest">...</span>
+							<button
+								onClick={() => setPage(1610673)}
+								className={`px-3 py-[5px] text-[13px] border rounded-[3px] transition-colors ${page === 1610673 ? 'bg-[#f48225] text-white border-[#f48225]' : 'bg-white text-[#3b4045] border-[#d6d9dc] hover:bg-gray-50'}`}
+							>
+								1610673
+							</button>
+						</>
+					)}
+					
+					<button
+						onClick={() => setPage(p => Math.min(1610673, p + 1))}
+						className="px-3 py-[5px] text-[13px] border border-[#d6d9dc] rounded-[3px] text-[#3b4045] bg-white hover:bg-gray-50 transition-colors"
+					>
+						Next
+					</button>
+				</div>
+
+				<div className="flex items-center gap-2">
+					<div className="flex gap-1">
+						{[15, 30, 50].map((size) => (
+							<button
+								key={size}
+								onClick={() => { setPageSize(size); setPage(1); }}
+								className={`px-3 py-[5px] text-[13px] border rounded-[3px] transition-colors ${pageSize === size ? 'bg-[#f48225] text-white border-[#f48225]' : 'bg-white text-[#3b4045] border-[#d6d9dc] hover:bg-gray-50'}`}
+							>
+								{size}
+							</button>
+						))}
+					</div>
+					<span className="text-[13px] text-[#3b4045]">per page</span>
+				</div>
 			</div>
 		</div>
 	);
