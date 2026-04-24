@@ -1,7 +1,7 @@
 import { createRoot } from "react-dom/client";
 import Navbar from "./src/components/Navbar";
 import Container from "./src/components/Container";
-import Login from "./src/pages/login";
+import Login from "./src/pages/Login";
 import Home from "./src/pages/Home";
 import Signup from "./src/pages/Signup";
 import { BrowserRouter, Route, Routes } from "react-router";
