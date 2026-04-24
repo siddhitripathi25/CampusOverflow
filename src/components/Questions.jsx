@@ -167,7 +167,7 @@ export default function Questions() {
 								<a href={q.link} className='text-[#1b75cf] hover:text-[#0a95ff] text-[17px] leading-tight mb-[6px] break-words mt-[-2px]'>
 									{decodeHtml(q.title)}
 								</a>
-								<div className='text-[13px] text-[#3b4045] line-clamp-2 leading-[1.35] mb-[8px] break-words'>
+								<div className='text-[13px] text-[#1a1d20] line-clamp-2 leading-[1.35] mb-[8px] break-words'>
 									{q.body ? decodeHtml(q.body) : ""}
 								</div>
 

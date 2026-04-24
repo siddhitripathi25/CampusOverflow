@@ -99,6 +99,36 @@ export default function Featured() {
 				</div>
 				{displayCollectives()}
 			</div>
+
+			<div className='w-68.75 h-fit py-3 px-3 flex flex-col mt-6'>
+				<p className='font-bold text-[13px] text-[#0c0d0e] mb-3'>Hot Network Questions</p>
+				<ul className='flex flex-col gap-3'>
+					{[
+						{ icon: "🔢", text: "Asymptotic behaviour of difference set of smooth numbers" },
+						{ icon: "📝", text: "Any way to retrieve StoryMill articles and convert to anything else?" },
+						{ icon: "🌸", text: "Different usages of the term 'closed'" },
+						{ icon: "🔢", text: "Who coined the term \"clopen\"?" },
+						{ icon: "⚙️", text: "Pro and cons of different ways to deserialize a stream of bytes into a C++ object" },
+						{ icon: "🎵", text: "Is there a pedal damper for snare drum?" },
+						{ icon: "🔮", text: "How does transduction contrast with induction?" },
+						{ icon: "🌸", text: "Why does it make sense to approach the Basel problem this way?" },
+						{ icon: "❓", text: "How to stop/schedule auto updates on Ubuntu 26.04?" },
+						{ icon: "⚡", text: "What is the issue with using the MOSFET as a switch in the saturation region?" },
+						{ icon: "⚡", text: "Non-Inverting Amplifier with Midpoint Biasing" },
+						{ icon: "💻", text: "If a shell runs \"exec\" to start my graphical session, why do I still see that shell in the process list?" },
+						{ icon: "🤝", text: "Should a Scrum Master prevent a Product Owner from directing technical implementation during a sprint?" },
+						{ icon: "✈️", text: "How important is passport expiration date on Flight Booking if not expiring soon?" },
+						{ icon: "🎲", text: "Are high-level casters stronger than high-level martials?" },
+					].map((q, i) => (
+						<li key={i} className='flex items-start gap-2'>
+							<span className='text-[13px] shrink-0 mt-[1px]'>{q.icon}</span>
+							<a href='#' className='text-[13px] text-[#0074cc] hover:text-[#0a95ff] leading-[1.35]'>
+								{q.text}
+							</a>
+						</li>
+					))}
+				</ul>
+			</div>
 		</div>
 	);
 }
