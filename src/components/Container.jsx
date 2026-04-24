@@ -4,10 +4,9 @@ import Sidebar from "./Sidebar";
 
 export default function Container() {
 	return (
-		<div className='container flex flex-row justify-between pt-8 w-screen h-full text-sm font-light'>
+		<div className='max-w-[1264px] mx-auto w-full flex justify-between pt-8 text-sm font-light'>
 			<Sidebar />
 			<Questions />
-			
 			<Featured />
 		</div>
 	);
